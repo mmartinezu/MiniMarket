@@ -13,6 +13,7 @@ public class Ciudad {
     int id;
     String nombre, provincia;
 
+    public Ciudad(){}
     public Ciudad(int id, String nombre, String provincia) {
         this.id = id;
         this.nombre = nombre;

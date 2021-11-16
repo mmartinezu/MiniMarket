@@ -4,6 +4,7 @@ public class Proveedor {
     Ciudad cuidad;
     String nombre, direccion, descripcion, telefono;
 
+    public Proveedor(){}
     public Proveedor(int id, Ciudad cuidad, String nombre, String direccion, String descripcion, String telefono) {
         this.id = id;
         this.cuidad = cuidad;

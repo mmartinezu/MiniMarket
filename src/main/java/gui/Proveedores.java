@@ -5,6 +5,12 @@
  */
 package gui;
 
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import logica.GestorProveedor;
+import persistencia.Ciudad;
+import persistencia.Proveedor;
+
 /**
  *
  * @author David
@@ -16,8 +22,70 @@ public class Proveedores extends javax.swing.JFrame {
      */
     public Proveedores() {
         initComponents();
+        cargarTabla();
     }
 
+    
+    void cargarTabla(){
+        try {
+            DefaultTableModel modeloTabla;
+            GestorProveedor proveedor = new GestorProveedor();
+            modeloTabla = proveedor.cargar();
+            this.jTblProveedores.setModel(modeloTabla);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+                   
+        }
+    }
+    
+    void insertar(){
+        Proveedor proveedor = new Proveedor();
+        GestorProveedor gestorProveedor = new GestorProveedor();
+        //Creo el objecto ciudad para setear el id de la ciudad
+        Ciudad c = new Ciudad();
+        c.setId(Integer.valueOf(this.IdCiuProveedores.getText()));
+        proveedor.setNombre(this.NomProveedores.getText());
+        proveedor.setDireccion(this.DirProveedores.getText());
+        proveedor.setDescripcion(this.DesProveedores.getText());
+        proveedor.setTelefono(this.TelProveedores.getText());
+        proveedor.setCuidad(c);
+        
+        if (gestorProveedor.insertar(proveedor))
+            JOptionPane.showMessageDialog(null, "Proveedor insertado correctamente");
+        else
+            JOptionPane.showMessageDialog(null, "Error al insertar");   
+    }
+    
+    void editar(){
+        Proveedor proveedor = new Proveedor();
+        GestorProveedor gestorProveedor = new GestorProveedor();
+        //Creo el objecto ciudad para setear el id de la ciudad
+        Ciudad c = new Ciudad();
+        c.setId(Integer.valueOf(this.IdCiuProveedores.getText()));
+        proveedor.setId(Integer.valueOf(this.IdProvvedores.getText()));
+        proveedor.setNombre(this.NomProveedores.getText());
+        proveedor.setDireccion(this.DirProveedores.getText());
+        proveedor.setDescripcion(this.DesProveedores.getText());
+        proveedor.setTelefono(this.TelProveedores.getText());
+        proveedor.setCuidad(c);
+        
+        if (gestorProveedor.editar(proveedor))
+            JOptionPane.showMessageDialog(null, "Proveedor editado correctamente");
+        else
+            JOptionPane.showMessageDialog(null, "Error al editar");   
+    }
+    
+    void eliminar(){
+        if( !IdProvvedores.getText().equals("") ){
+            int confirmacion = JOptionPane.showConfirmDialog(this, "Seguro que desea eliminar este proveedor?", "Confirmar", 2);
+            if(confirmacion == 0){
+                Proveedor proveedor = new Proveedor();
+                GestorProveedor gestorProveedor = new GestorProveedor();
+                proveedor.setId(Integer.valueOf(this.IdProvvedores.getText()));
+                gestorProveedor.eliminar(proveedor);
+            }
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -35,7 +103,7 @@ public class Proveedores extends javax.swing.JFrame {
         NomProveedores = new javax.swing.JTextField();
         DirProveedores = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTblProveedores = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -51,6 +119,8 @@ public class Proveedores extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
         jLabel1.setText("PROVEEDORES");
 
+        IdProvvedores.setEnabled(false);
+
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("ID :");
 
@@ -60,7 +130,7 @@ public class Proveedores extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("DIRECCIÓN :");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTblProveedores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -71,7 +141,12 @@ public class Proveedores extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jTblProveedores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTblProveedoresMousePressed(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTblProveedores);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setText("TELÉFONO :");
@@ -80,7 +155,7 @@ public class Proveedores extends javax.swing.JFrame {
         jLabel7.setText("ID CIUDAD :");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel5.setText("DESCUENTO :");
+        jLabel5.setText("DESCRIPCION:");
 
         EditProveedores.setText("EDITAR");
         EditProveedores.addActionListener(new java.awt.event.ActionListener() {
@@ -193,15 +268,33 @@ public class Proveedores extends javax.swing.JFrame {
 
     private void EditProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditProveedoresActionPerformed
         // TODO add your handling code here:
+        editar();
+        cargarTabla();
     }//GEN-LAST:event_EditProveedoresActionPerformed
 
     private void EliProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliProveedoresActionPerformed
         // TODO add your handling code here:
+        eliminar();
+        cargarTabla();
+        //limpiarCampos();
     }//GEN-LAST:event_EliProveedoresActionPerformed
 
     private void GuaProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuaProveedoresActionPerformed
         // TODO add your handling code here:
+        insertar();
+        cargarTabla();
     }//GEN-LAST:event_GuaProveedoresActionPerformed
+
+    private void jTblProveedoresMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTblProveedoresMousePressed
+        // TODO add your handling code here:
+        int fila = this.jTblProveedores.rowAtPoint(evt.getPoint());
+        this.IdProvvedores.setText(this.jTblProveedores.getValueAt(fila, 0).toString());
+        this.NomProveedores.setText(this.jTblProveedores.getValueAt(fila, 1).toString());
+        this.DirProveedores.setText(this.jTblProveedores.getValueAt(fila, 2).toString());
+        this.DesProveedores.setText(this.jTblProveedores.getValueAt(fila, 3).toString());
+        this.TelProveedores.setText(this.jTblProveedores.getValueAt(fila, 4).toString());
+        this.IdCiuProveedores.setText(this.jTblProveedores.getValueAt(fila, 5).toString());
+    }//GEN-LAST:event_jTblProveedoresMousePressed
 
     /**
      * @param args the command line arguments
@@ -257,6 +350,6 @@ public class Proveedores extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTblProveedores;
     // End of variables declaration//GEN-END:variables
 }
