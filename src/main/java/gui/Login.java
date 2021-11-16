@@ -7,12 +7,12 @@ package gui;
 
 /**
  *
- * @author Usuario
+ * @author David
  */
 public class Login extends javax.swing.JFrame {
 
     /**
-     * Creates new form Cliente
+     * Creates new form Login1
      */
     public Login() {
         initComponents();
@@ -32,11 +32,10 @@ public class Login extends javax.swing.JFrame {
         jtxtUsuario = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jtxtUsuario2 = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(204, 255, 204));
 
         jLabel3.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
         jLabel3.setText("Bienvenido");
@@ -53,15 +52,15 @@ public class Login extends javax.swing.JFrame {
 
         jtxtUsuario2.setBackground(new java.awt.Color(225, 238, 236));
 
-        jLabel4.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
-        jLabel4.setText("Desarrollado por: JAM Software");
-
         jButton1.setText("INICIAR SESIÓN");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
+
+        jLabel4.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
+        jLabel4.setText("Desarrollado por: JAM Software");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -80,7 +79,7 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(129, Short.MAX_VALUE))
+                .addContainerGap(138, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,7 +96,7 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jtxtUsuario2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addContainerGap())
         );

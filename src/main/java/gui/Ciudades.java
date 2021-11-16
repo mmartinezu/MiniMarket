@@ -9,10 +9,10 @@ package gui;
  *
  * @author David
  */
-public class Ciudades extends javax.swing.JPanel {
+public class Ciudades extends javax.swing.JFrame {
 
     /**
-     * Creates new form Ciudades
+     * Creates new form Ciudades1
      */
     public Ciudades() {
         initComponents();
@@ -29,18 +29,20 @@ public class Ciudades extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         IdCiudad = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
         NomCiudad = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
         ProCiudad = new javax.swing.JTextField();
-        GuarCiudad = new javax.swing.JButton();
+        BusCiudad = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        ElimCiudad = new javax.swing.JButton();
         EditCiudad = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        BusCiudad = new javax.swing.JTextField();
+        ElimCiudad = new javax.swing.JButton();
+        GuarCiudad = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
         jLabel1.setText("CIUDADES");
@@ -54,12 +56,8 @@ public class Ciudades extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("PROVINCIA :");
 
-        GuarCiudad.setText("GUARDAR");
-        GuarCiudad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                GuarCiudadActionPerformed(evt);
-            }
-        });
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel5.setText("BUSCAR CIUDAD :");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -74,13 +72,6 @@ public class Ciudades extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        ElimCiudad.setText("ELIMINAR");
-        ElimCiudad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ElimCiudadActionPerformed(evt);
-            }
-        });
-
         EditCiudad.setText("EDITAR");
         EditCiudad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,11 +79,22 @@ public class Ciudades extends javax.swing.JPanel {
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel5.setText("BUSCAR CIUDAD :");
+        ElimCiudad.setText("ELIMINAR");
+        ElimCiudad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ElimCiudadActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        GuarCiudad.setText("GUARDAR");
+        GuarCiudad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuarCiudadActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -120,7 +122,7 @@ public class Ciudades extends javax.swing.JPanel {
                             .addComponent(GuarCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ElimCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(EditCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(126, 126, 126)
                 .addComponent(jLabel5)
@@ -148,9 +150,9 @@ public class Ciudades extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel2)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(NomCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(NomCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
@@ -161,22 +163,59 @@ public class Ciudades extends javax.swing.JPanel {
                             .addComponent(BusCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void GuarCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuarCiudadActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_GuarCiudadActionPerformed
-
-    private void ElimCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ElimCiudadActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ElimCiudadActionPerformed
 
     private void EditCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditCiudadActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_EditCiudadActionPerformed
 
+    private void ElimCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ElimCiudadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ElimCiudadActionPerformed
+
+    private void GuarCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuarCiudadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_GuarCiudadActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Ciudades.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Ciudades.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Ciudades.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Ciudades.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Ciudades().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField BusCiudad;
