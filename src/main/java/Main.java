@@ -1,5 +1,4 @@
 
-import gui.Ciudades;
 import java.util.List;
 import persistencia.Ciudad;
 import persistencia.CiudadDAO;

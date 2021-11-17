@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package logica;
 
 import conexion.Conexion;
@@ -12,25 +7,21 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import persistencia.Proveedor;
+import persistencia.Empleado;
 
-/**
- *
- * @author Usuario
- */
-public class GestorProveedor{
+public class GestorEmpleado {
     Connection conexion = Conexion.getConexion();
     private String sql = "";
     
     public DefaultTableModel cargar(){
         DefaultTableModel modeloTabla;
         
-        String [] titulos = {"Id", "Proveedor", "Direccion","Descripcion", "Telefono", "Ciudad"};
-        String [] registro = new String[6];
+        String [] titulos = {"Id", "Cédula", "Nombre","Apellido","Sueldo", "Ciudad","Direccion", "Titulo", "Género", "E.Civil"};
+        String [] registro = new String[10];
         
         modeloTabla = new DefaultTableModel(null, titulos);
-        sql = "SELECT P.ID_PRO, P.NOM_PRO, P.DIR_PRO, P.DESC_PRO, P.TEL_PRO, C.NOM_CIU' "
-                + "'FROM PROVEEDORES AS P, CIUDADES AS C WHERE C.ID_CIU = P.ID_CIU_PRO";
+        sql = "SELECT E.ID_EMP, E.CED_EMP, E.NOM_EMP, E.APE_EMP, E.SUE_EMP, C.NOM_CIU, E.DIR_EMP, E.TIT_EMP, E.GEN_EMP, E.EST_CIV_EMP'"
+                + "'FROM EMPLEADOS AS E, CIUDADES AS C WHERE C.ID_CIU = E.ID_CIU_EMP";
         
         try {
             Statement st = conexion.createStatement();
@@ -43,6 +34,10 @@ public class GestorProveedor{
                 registro[3] = rs.getString(4);
                 registro[4] = rs.getString(5);
                 registro[5] = rs.getString(6);
+                registro[6] = rs.getString(7);
+                registro[7] = rs.getString(8);
+                registro[8] = rs.getString(9);
+                registro[9] = rs.getString(10);
                 modeloTabla.addRow(registro);
             }
             return modeloTabla;
@@ -52,15 +47,20 @@ public class GestorProveedor{
         }
     }
     
-    public boolean insertar(Proveedor proveedor){
-        sql = "INSERT INTO PROVEEDORES(NOM_PRO, DIR_PRO, DESC_PRO, TEL_PRO, ID_CIU_PRO) VALUES (?,?,?,?,?)";
+    public boolean insertar(Empleado empleado){
+        sql = "INSERT INTO EMPLEADOS(CED_EMP, NOM_EMP, APE_EMP, SUE_EMP, ID_CIU_EMP, TIT_EMP, DIR_EMP, GEN_EMP, EST_CIV_EMP)'"
+                + "'VALUES (?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setString(1, proveedor.getNombre());
-            ps.setString(2, proveedor.getDireccion());
-            ps.setString(3, proveedor.getDescripcion());
-            ps.setString(4, proveedor.getTelefono());
-            ps.setInt(5, proveedor.getCuidad().getId());
+            ps.setString(1, empleado.getCedula());
+            ps.setString(2, empleado.getNombre());
+            ps.setString(3, empleado.getApellido());
+            ps.setDouble(4, empleado.getSueldo());
+            ps.setInt(5, empleado.getCiudad().getId());
+            ps.setString(6, empleado.getTitulo());
+            ps.setString(7, empleado.getDireccion());
+            ps.setString(8, empleado.getGenero());
+            ps.setString(9, empleado.getEstado_civil());
             //Compruebo si se hizo el insert
             int n = ps.executeUpdate();
             return n !=0 ;
@@ -70,17 +70,17 @@ public class GestorProveedor{
         }
     }
     
-    public boolean editar(Proveedor proveedor){
-        sql = "UPDATE PROVEEDORES SET NOM_PRO=?, DIR_PRO=?, DESC_PRO=?, TEL_PRO=?, ID_CIU_PRO=? WHERE ID_PRO=?";
+    //Se podra actualizar el sueldo,la direccion, estado civil y el titulo del empleado
+    public boolean editar(Empleado empleado){
+        sql = "UPDATE EMPLEADOS SET SUE_EMP=?, EST_CIV_EMP=?, TIT_EMP=?, DIR_EMP=? WHERE ID_EMP=?";
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setString(1, proveedor.getNombre());
-            ps.setString(2, proveedor.getDireccion());
-            ps.setString(3, proveedor.getDescripcion());
-            ps.setString(4, proveedor.getTelefono());
-            ps.setInt(5, proveedor.getCuidad().getId());
+            ps.setDouble(1, empleado.getSueldo());
+            ps.setString(2, empleado.getEstado_civil());
+            ps.setString(3, empleado.getTitulo());
+            ps.setString(4, empleado.getDireccion());
+            ps.setInt(5, empleado.getId());
             
-            ps.setInt(6, proveedor.getId());
             int n = ps.executeUpdate();
             return n !=0 ;
         } catch (Exception e) {
@@ -89,11 +89,11 @@ public class GestorProveedor{
         }
     }
     
-    public boolean eliminar(Proveedor proveedor){
-        sql = "DELETE FROM PROVEEDORES WHERE ID_PRO = ?";
+    public boolean eliminar(Empleado empleado){
+        sql = "DELETE FROM EMPLEADOS WHERE ID_EMP = ?";
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setInt(1, proveedor.getId());
+            ps.setInt(1, empleado.getId());
             
             int n = ps.executeUpdate();
             return n != 0 ;
