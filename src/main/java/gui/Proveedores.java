@@ -5,8 +5,10 @@
  */
 package gui;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import logica.GestorCiudad;
 import logica.GestorProveedor;
 import persistencia.Ciudad;
 import persistencia.Proveedor;
@@ -23,6 +25,7 @@ public class Proveedores extends javax.swing.JFrame {
     public Proveedores() {
         initComponents();
         cargarTabla();
+        cargarComboCiudades();
     }
 
     
@@ -33,9 +36,28 @@ public class Proveedores extends javax.swing.JFrame {
             modeloTabla = proveedor.cargar();
             this.jTblProveedores.setModel(modeloTabla);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-                   
+            JOptionPane.showMessageDialog(null, e);      
         }
+    }
+    
+    void cargarComboCiudades(){
+        try {
+            DefaultComboBoxModel modeloCombo;
+            GestorCiudad gestorCiudad = new GestorCiudad();
+            modeloCombo = gestorCiudad.cargarCiudades();
+            this.jcbxCiudades.setModel(modeloCombo);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
+    
+    void limpiarCampos(){
+        this.IdProvvedores.setText("");
+        this.DesProveedores.setText("");
+        this.DirProveedores.setText("");
+        this.NomProveedores.setText("");
+        this.TelProveedores.setText("");
+        this.jcbxCiudades.setSelectedItem(null);
     }
     
     void insertar(){
@@ -43,7 +65,7 @@ public class Proveedores extends javax.swing.JFrame {
         GestorProveedor gestorProveedor = new GestorProveedor();
         //Creo el objecto ciudad para setear el id de la ciudad
         Ciudad c = new Ciudad();
-        c.setId(Integer.valueOf(this.IdCiuProveedores.getText()));
+        c.setId(((Ciudad)this.jcbxCiudades.getSelectedItem()).getId());
         proveedor.setNombre(this.NomProveedores.getText());
         proveedor.setDireccion(this.DirProveedores.getText());
         proveedor.setDescripcion(this.DesProveedores.getText());
@@ -61,7 +83,7 @@ public class Proveedores extends javax.swing.JFrame {
         GestorProveedor gestorProveedor = new GestorProveedor();
         //Creo el objecto ciudad para setear el id de la ciudad
         Ciudad c = new Ciudad();
-        c.setId(Integer.valueOf(this.IdCiuProveedores.getText()));
+        c.setId(((Ciudad)this.jcbxCiudades.getSelectedItem()).getId());
         proveedor.setId(Integer.valueOf(this.IdProvvedores.getText()));
         proveedor.setNombre(this.NomProveedores.getText());
         proveedor.setDireccion(this.DirProveedores.getText());
@@ -108,11 +130,11 @@ public class Proveedores extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         DesProveedores = new javax.swing.JTextField();
-        IdCiuProveedores = new javax.swing.JTextField();
         TelProveedores = new javax.swing.JTextField();
         EditProveedores = new javax.swing.JButton();
         EliProveedores = new javax.swing.JButton();
         GuaProveedores = new javax.swing.JButton();
+        jcbxCiudades = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -152,7 +174,7 @@ public class Proveedores extends javax.swing.JFrame {
         jLabel6.setText("TELÉFONO :");
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel7.setText("ID CIUDAD :");
+        jLabel7.setText("CIUDAD :");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setText("DESCRIPCION:");
@@ -212,8 +234,8 @@ public class Proveedores extends javax.swing.JFrame {
                                 .addGap(65, 65, 65)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(DesProveedores, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                                    .addComponent(IdCiuProveedores)
-                                    .addComponent(TelProveedores)))))
+                                    .addComponent(TelProveedores)
+                                    .addComponent(jcbxCiudades, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(305, 305, 305)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -252,15 +274,15 @@ public class Proveedores extends javax.swing.JFrame {
                                     .addComponent(DesProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(IdCiuProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jcbxCiudades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(TelProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel6))))
                         .addGap(42, 42, 42)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
 
         pack();
@@ -270,19 +292,21 @@ public class Proveedores extends javax.swing.JFrame {
         // TODO add your handling code here:
         editar();
         cargarTabla();
+        limpiarCampos();
     }//GEN-LAST:event_EditProveedoresActionPerformed
 
     private void EliProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliProveedoresActionPerformed
         // TODO add your handling code here:
         eliminar();
         cargarTabla();
-        //limpiarCampos();
+        limpiarCampos();
     }//GEN-LAST:event_EliProveedoresActionPerformed
 
     private void GuaProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuaProveedoresActionPerformed
         // TODO add your handling code here:
         insertar();
         cargarTabla();
+        limpiarCampos();
     }//GEN-LAST:event_GuaProveedoresActionPerformed
 
     private void jTblProveedoresMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTblProveedoresMousePressed
@@ -293,7 +317,7 @@ public class Proveedores extends javax.swing.JFrame {
         this.DirProveedores.setText(this.jTblProveedores.getValueAt(fila, 2).toString());
         this.DesProveedores.setText(this.jTblProveedores.getValueAt(fila, 3).toString());
         this.TelProveedores.setText(this.jTblProveedores.getValueAt(fila, 4).toString());
-        this.IdCiuProveedores.setText(this.jTblProveedores.getValueAt(fila, 5).toString());
+        this.jcbxCiudades.setSelectedItem(this.jTblProveedores.getValueAt(fila, 5).toString());
     }//GEN-LAST:event_jTblProveedoresMousePressed
 
     /**
@@ -338,7 +362,6 @@ public class Proveedores extends javax.swing.JFrame {
     private javax.swing.JButton EditProveedores;
     private javax.swing.JButton EliProveedores;
     private javax.swing.JButton GuaProveedores;
-    private javax.swing.JTextField IdCiuProveedores;
     private javax.swing.JTextField IdProvvedores;
     private javax.swing.JTextField NomProveedores;
     private javax.swing.JTextField TelProveedores;
@@ -351,5 +374,6 @@ public class Proveedores extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTblProveedores;
+    private javax.swing.JComboBox<String> jcbxCiudades;
     // End of variables declaration//GEN-END:variables
 }

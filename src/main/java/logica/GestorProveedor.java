@@ -29,7 +29,8 @@ public class GestorProveedor{
         String [] registro = new String[6];
         
         modeloTabla = new DefaultTableModel(null, titulos);
-        sql = "SELECT * FROM PROVEEDORES";
+        sql = "SELECT P.ID_PRO, P.NOM_PRO, P.DIR_PRO, P.DESC_PRO, P.TEL_PRO, C.NOM_CIU' "
+                + "'FROM PROVEEDORES AS P, CIUDADES AS C WHERE C.ID_CIU = P.ID_CIU_PRO";
         
         try {
             Statement st = conexion.createStatement();

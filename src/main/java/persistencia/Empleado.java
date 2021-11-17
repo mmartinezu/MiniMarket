@@ -1,12 +1,16 @@
 package persistencia;
 public class Empleado {
     Ciudad ciudad;
-    String id, nombre, apellido, titulo, direccion, genero, estado_civil;
+    int id;
+    String cedula, nombre, apellido, titulo, direccion, genero, estado_civil;
     double sueldo;
 
-    public Empleado(Ciudad ciudad, String id, String nombre, String apellido, String titulo, String direccion, String genero, String estado_civil, double sueldo) {
+    public Empleado(){}
+    
+    public Empleado(Ciudad ciudad, int id, String cedula, String nombre, String apellido, String titulo, String direccion, String genero, String estado_civil, double sueldo) {
         this.ciudad = ciudad;
         this.id = id;
+        this.cedula = cedula;
         this.nombre = nombre;
         this.apellido = apellido;
         this.titulo = titulo;
@@ -24,12 +28,20 @@ public class Empleado {
         this.ciudad = ciudad;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
+    }
+
+    public String getCedula() {
+        return cedula;
+    }
+
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
     }
 
     public String getNombre() {
@@ -87,7 +99,8 @@ public class Empleado {
     public void setSueldo(double sueldo) {
         this.sueldo = sueldo;
     }
-
-   
+    
+    
+    
     
 }

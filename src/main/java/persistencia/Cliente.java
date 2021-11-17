@@ -12,12 +12,15 @@ import java.sql.Date;
  * @author Usuario
  */
 public class Cliente {
-    String id, nombre, apellido, direccion, email, titulo, telefono, genero, estado_civil;
+    int id;
+    String cedula, nombre, apellido, direccion, email, titulo, telefono, genero, estado_civil;
     Date fecha_nacimiento;
     Ciudad ciudad;
 
-    public Cliente(String id, String nombre, String apellido, String direccion, String email, String titulo, String telefono, String genero, String estado_civil, Date fecha_nacimiento, Ciudad ciudad) {
+    public Cliente(){}
+    public Cliente(int id, String cedula, String nombre, String apellido, String direccion, String email, String titulo, String telefono, String genero, String estado_civil, Date fecha_nacimiento, Ciudad ciudad) {
         this.id = id;
+        this.cedula = cedula;
         this.nombre = nombre;
         this.apellido = apellido;
         this.direccion = direccion;
@@ -30,12 +33,20 @@ public class Cliente {
         this.ciudad = ciudad;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
+    }
+
+    public String getCedula() {
+        return cedula;
+    }
+
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
     }
 
     public String getNombre() {
@@ -117,8 +128,9 @@ public class Cliente {
     public void setCiudad(Ciudad ciudad) {
         this.ciudad = ciudad;
     }
-
-   
+    
+    
+    
     
             
 }
